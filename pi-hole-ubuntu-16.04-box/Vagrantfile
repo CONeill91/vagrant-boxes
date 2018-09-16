@@ -2,11 +2,10 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-    config.vm.box = "hashicorp/precise64"
+    # Ubuntu 16.04
+    config.vm.box = "ubuntu/xenial64"
     # Bridged box
     config.vm.network "public_network", bridge: 'enp2s0', ip: "192.168.0.3"  
-    # Copy installation script to root home dir
-    config.vm.provision :shell, inline: "cp /vagrant/pi-hole-install.sh /root/"
-    # Give it execuable permissions
-    config.vm.provision :shell, inline: "chmod 700 /root/pi-hole-install.sh"
+    # Run provisioning script to get installation script    
+    config.vm.provision :shell, path: "get-pi-hole-install-script.sh"
 end
