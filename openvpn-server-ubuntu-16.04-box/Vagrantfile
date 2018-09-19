@@ -1,0 +1,14 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
+Vagrant.configure("2") do |openvpn|
+    # Ubuntu 16.04
+    openvpn.vm.box = "ubuntu/xenial64"
+    # Bridged box
+    openvpn.vm.network "public_network", bridge: 'enp2s0', ip: "192.168.0.4"  
+    # Forward ssh to port 5555 on host
+    openvpn.vm.network "forwarded_port", guest: 22, host: 5555, host_ip: "127.0.0.1", id: "ssh"
+    # Run provisioning script
+    openvpn.vm.provision :shell, path: "provisioning-script.sh"
+end
