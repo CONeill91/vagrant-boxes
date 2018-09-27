@@ -1,0 +1,11 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    # Ubuntu 16.04
+    config.vm.box = "ubuntu/xenial64"
+    # Bridged box
+    config.vm.network "public_network", bridge: 'enp2s0', ip: "192.168.0.5"
+    # Provisioning script
+    config.vm.provision :shell, path: "setup-nginx.sh"
+end
